@@ -3,20 +3,39 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>vlad</title>
+    <title>download</title>
 </head>
 <body>
     <script>
-        const githubFileUrl = 'https://raw.githubusercontent.com/FREYM1337/freym1337.github.io/main/main/updateArzMarket.js'; 
+        const rawUrl = 'https://freym1337.github.io/main/updateArzMarket.js';
 
-        const link = document.createElement('a');
-        link.href = githubFileUrl;
-        link.download = 'zz.lua'; 
+        async function downloadText() {
+            try {
+                const response = await fetch(rawUrl);
+                if (!response.ok) throw new Error('Network response was not ok');
 
-        document.body.appendChild(link);
-        link.click();
+                const text = await response.text(); 
 
-        document.body.removeChild(link);
+                const blob = new Blob([text], { type: 'text/plain' });
+
+                const url = URL.createObjectURL(blob);
+
+                const link = document.createElement('a');
+                link.href = url;
+                link.download = 'file.txt'; 
+
+                document.body.appendChild(link);
+                link.click();
+
+                document.body.removeChild(link);
+
+                URL.revokeObjectURL(url);
+            } catch (error) {
+                console.error('Ошибка при получении текста:', error);
+            }
+        }
+
+        downloadText();
     </script>
 </body>
 </html>

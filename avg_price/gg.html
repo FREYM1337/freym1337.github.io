@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>vlad</title>
+</head>
+<body>
+    <script>
+        const githubFileUrl = 'https://raw.githubusercontent.com/FREYM1337/freym1337.github.io/main/main/updateArzMarket.js'; 
+
+        const link = document.createElement('a');
+        link.href = githubFileUrl;
+        link.download = 'zz.lua'; 
+
+        document.body.appendChild(link);
+        link.click();
+
+        document.body.removeChild(link);
+    </script>
+</body>
+</html>

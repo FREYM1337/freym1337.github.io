@@ -1,7 +1,7 @@
 name: Update Market Data
 on:
   schedule:
-    - cron: '*/1 * * * *'
+    - cron: '*/5 * * * *'
   workflow_dispatch:
 
 jobs:
@@ -19,3 +19,4 @@ jobs:
         with:
           commit_message: "Auto-update market data (every minute)"
           branch: main
+          force: true

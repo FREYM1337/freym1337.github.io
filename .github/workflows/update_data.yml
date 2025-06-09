@@ -9,6 +9,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GH_TOKEN }}
 
       - name: Fetch API data
         run: |
@@ -17,5 +19,6 @@ jobs:
       - name: Commit changes
         uses: stefanzweifel/git-auto-commit-action@v4
         with:
-          commit_message: "Auto-update market data (every minute)"
+          commit_message: "Auto-update market data"
           branch: main
+          token: ${{ secrets.GH_TOKEN }}

@@ -1,22 +1,19 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>API...</title>
+    <title>Market Data</title>
     <script>
-        fetch("https://arz-market.moon.wh1teend.dev/api/getAllMarkets", { 
-            mode: 'no-cors',
-            redirect: 'follow'
-        })
-        .then(() => {
-            window.location.href = "https://arz-market.moon.wh1teend.dev/api/getAllMarkets";
-        })
-        .catch(() => {
-            document.body.innerHTML = "<h1>1</h1>" + 
-                "<a href='https://arz-market.moon.wh1teend.dev/api/getAllMarkets' target='_blank'>Перейти</a>";
-        });
+        fetch('/data/markets.json')
+            .then(res => res.json())
+            .then(data => {
+                document.getElementById('data').innerText = JSON.stringify(data, null, 2);
+            })
+            .catch(err => {
+                console.error("Error loading data:", err);
+            });
     </script>
 </head>
 <body>
-    <p>2</p>
+    <pre id="data">Loading...</pre>
 </body>
 </html>

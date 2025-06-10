@@ -1,27 +1,19 @@
 name: Update Market Data
-
 on:
   workflow_dispatch:
 
 jobs:
   update:
     runs-on: ubuntu-latest
-    permissions:
-      contents: write
-
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
 
       - name: Fetch API data
         run: |
-          mkdir -p ./data
           curl -s "https://arz-market.moon.wh1teend.dev/api/getAllMarkets" > ./data/markets.json
 
-      - name: Commit and push changes
-        run: |
-          git config --global user.name 'GitHub Actions'
-          git config --global user.email 'actions@github.com'
-          git add .
-          git commit -m 'Update market data'
-          git push
+      - name: Commit changes
+        uses: stefanzweifel/git-auto-commit-action@v4
+        with:
+          commit_message: "Auto-update market data"
+          branch: workflow

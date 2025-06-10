@@ -1,32 +1,29 @@
-name: Fetch Data
+name: Update Market Data
 
 on:
+  workflow_dispatch:
   schedule:
     - cron: '*/5 * * * *'
 
 jobs:
-  fetch-data:
+  update:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
 
     steps:
-    - name: Checkout repository
-      uses: actions/checkout@v2
+      - name: Checkout repository
+        uses: actions/checkout@v4
 
-    - name: Set up Node.js
-      uses: actions/setup-node@v2
-      with:
-        node-version: '14'
+      - name: Fetch API data
+        run: |
+          mkdir -p ./data
+          curl -s "https://arz-market.moon.wh1teend.dev/api/getAllMarkets" > ./data/markets.json
 
-    - name: Install dependencies
-      run: npm install
-
-    - name: Run fetch script
-      run: node fetch_data.js
-
-    - name: Commit and push changes
-      run: |
-        git config --global user.name 'GitHub Actions'
-        git config --global user.email 'actions@github.com'
-        git add .
-        git commit -m 'Update data'
-        git push
+      - name: Commit and push changes
+        run: |
+          git config --global user.name 'GitHub Actions'
+          git config --global user.email 'actions@github.com'
+          git add .
+          git commit -m 'Update market data'
+          git push

@@ -1,0 +1,22 @@
+name: Update Market Data
+on:
+  schedule:
+    - cron: '*/10 * * * *'
+  workflow_dispatch:
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Fetch API data
+        run: |
+          curl -s "https://arz-market.moon.wh1teend.dev/api/getAllMarkets" > ./data/markets.json
+
+      - name: Commit changes
+        uses: stefanzweifel/git-auto-commit-action@v4
+        with:
+          commit_message: "Auto-update market data (every 10)"
+          branch: main
+          force: true

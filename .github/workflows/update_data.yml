@@ -16,7 +16,7 @@ jobs:
       - name: Fetch API data
         run: |
           mkdir -p ./data
-          curl -s "https://arz-market.moon.wh1teend.dev/api/getAllMarkets" > ./data/markets.json
+          curl -s "https://arz-market.moon.wh1teend.dev/api/getAllMarketplace" > ./data/markets.json
 
       - name: Commit and push changes
         run: |
